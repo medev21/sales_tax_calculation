@@ -24,12 +24,29 @@ class Sales_Tax(object):
             print('something went wrong')
 
     def get_sales_tax(self):
-        tax = [] #empty tax array
+        tax_arr = [] #empty tax array
         for line in self.get_array_lines():
-            tax.append(self.calculate_tax(line)) #added calulated taxes in array
+            tax_arr.append(self.calculate_tax(line)) #added calulated taxes in array
 
+        # import pdb; pdb.set_trace()
+        return tax_arr #return tax arrays
+
+    def get_total_amount(self):
+        amount_arr = []
+        for line in self.get_array_lines():
+            amount_arr.append(self.calculate_amount(line)) #added calulated taxes in array
+
+        # zipped_price = zip(amount_arr, self.get_sales_tax())
+        # x = list(zipped_price)
+        total_amount = map(sum, zip(amount_arr, self.get_sales_tax()))
         import pdb; pdb.set_trace()
-        return tax #return tax arrays
+
+        return total_amount #return tax arrays
+
+    def calculate_amount(self, line):
+        split_line = line.split() #split the line into an array
+        product_price = float(split_line[len(split_line) - 1]) #get last item in the array
+        return product_price
 
     def calculate_tax(self, line):
         split_line = line.split()
@@ -70,16 +87,15 @@ class Sales_Tax(object):
 
         return lines #return each line in an array
 
-    def check_line(self):
+    # def check_line(self):
+    #
+    #     for line in self.get_array_lines():
+    #         if self.is_imported(line):
+    #             return calculate_tax(line)
+    #             # pass
+    #     pass
 
-        for line in self.get_array_lines():
-            if self.is_imported(line):
-                return calculate_tax(line)
-                # pass
-        pass
 
-    # def get_total_amount(self):
-        # do something
 
 tax_input1 = Sales_Tax('salesTaxInput3.txt')
 
@@ -87,5 +103,6 @@ tax_input1 = Sales_Tax('salesTaxInput3.txt')
 # tax_input1.get_content()
 # tax_input1.is_imported("1 imported box of chocolates at 10.00")
 # tax_input1.calculate_tax("1 imported box of chocolates at 10.00")
-tax_input1.get_sales_tax()
+# tax_input1.get_sales_tax()
 # tax_input1.is_exempted("1 imported box of chocolates at 10.00")
+tax_input1.get_total_amount()
