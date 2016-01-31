@@ -31,27 +31,12 @@ class Sales_Tax(object):
         import pdb; pdb.set_trace()
         return tax #return tax arrays
 
-    def get_array_lines(self):
-        lines = self.get_content()  #call get_content method for file_lines
-
-        return lines #return each line in an array
-
-    def check_line(self):
-
-        for line in self.get_array_lines():
-            if self.is_imported(line):
-                return calculate_tax(line)
-                # pass
-
-        pass
-
     def calculate_tax(self, line):
         split_line = line.split()
         quantity = int(split_line[0]) #get first item in the array
         product_price = float(split_line[len(split_line) - 1]) #get last item in the array
-        sales_tax = quantity * product_price * self.import_tax #sales_tax is a float type
-
-        # import pdb; pdb.set_trace()
+        if self.is_imported(line):
+            sales_tax = quantity * product_price * self.import_tax #sales_tax is a float type
 
         return sales_tax
 
@@ -66,8 +51,27 @@ class Sales_Tax(object):
 
     def is_exempted(self, line):
         bool = False
+        exempt_products = ["chocolates", "chocolate", "pills", "book"]
+
+        for product in exempt_products:
+            if product in line:
+                bool = True
+
         print(bool)
         return bool
+
+    def get_array_lines(self):
+        lines = self.get_content()  #call get_content method for file_lines
+
+        return lines #return each line in an array
+
+    def check_line(self):
+
+        for line in self.get_array_lines():
+            if self.is_imported(line):
+                return calculate_tax(line)
+                # pass
+        pass
 
     # def get_total_amount(self):
         # do something
@@ -78,4 +82,5 @@ tax_input1 = Sales_Tax('salesTaxInput2.txt')
 # tax_input1.get_content()
 # tax_input1.is_imported("1 imported box of chocolates at 10.00")
 # tax_input1.calculate_tax("1 imported box of chocolates at 10.00")
-tax_input1.get_sales_tax()
+# tax_input1.get_sales_tax()
+tax_input1.is_exempted("1 imported box of chocolates at 10.00")
