@@ -35,9 +35,14 @@ class Sales_Tax(object):
         split_line = line.split()
         quantity = int(split_line[0]) #get first item in the array
         product_price = float(split_line[len(split_line) - 1]) #get last item in the array
-        if self.is_imported(line):
-            sales_tax = quantity * product_price * self.import_tax #sales_tax is a float type
-
+        if self.is_imported(line) and not self.is_exempted(line):
+            sales_tax = quantity * product_price * (self.import_tax + self.nonexemp_tax)#sales_tax is a float type
+        elif self.is_imported(line):
+            sales_tax = quantity * product_price * self.import_tax
+        elif not self.is_exempted(line):
+            sales_tax = quantity * product_price * self.nonexemp_tax
+        else:
+            sales_tax = 0
         return sales_tax
 
     def is_imported(self, line): #takes line(a string) as param
@@ -46,7 +51,7 @@ class Sales_Tax(object):
 
         if any("imported" in s for s in split_line):  #check the array if contains imported
             bool = True #set boolean to true
-        print(bool)
+        # print(bool)
         return bool
 
     def is_exempted(self, line):
@@ -57,7 +62,7 @@ class Sales_Tax(object):
             if product in line:
                 bool = True
 
-        print(bool)
+        # import pdb; pdb.set_trace()
         return bool
 
     def get_array_lines(self):
@@ -76,11 +81,11 @@ class Sales_Tax(object):
     # def get_total_amount(self):
         # do something
 
-tax_input1 = Sales_Tax('salesTaxInput2.txt')
+tax_input1 = Sales_Tax('salesTaxInput3.txt')
 
 # tax_input1.get_single_lines()
 # tax_input1.get_content()
 # tax_input1.is_imported("1 imported box of chocolates at 10.00")
 # tax_input1.calculate_tax("1 imported box of chocolates at 10.00")
-# tax_input1.get_sales_tax()
-tax_input1.is_exempted("1 imported box of chocolates at 10.00")
+tax_input1.get_sales_tax()
+# tax_input1.is_exempted("1 imported box of chocolates at 10.00")
