@@ -43,7 +43,7 @@ class read_file(object):
         # print(bool)
         return bool
 
-    def is_exempted(self):
+    def is_exempted(self, line):
         bool = False
         print(bool)
         return bool
