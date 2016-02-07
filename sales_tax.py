@@ -17,6 +17,8 @@ class Sales_Tax(object):
             with open(self.file) as f:
                 file_lines = f.readlines() #read each line
 
+            import pdb; pdb.set_trace()
+
             return file_lines
 
         except:
@@ -36,10 +38,7 @@ class Sales_Tax(object):
         for line in self.get_array_lines():
             amount_arr.append(self.calculate_amount(line)) #added calulated taxes in array
 
-        # zipped_price = zip(amount_arr, self.get_sales_tax())
-        # x = list(zipped_price)
         total_amount = map(sum, zip(amount_arr, self.get_sales_tax()))
-        import pdb; pdb.set_trace()
 
         return total_amount #return tax arrays
 
@@ -106,3 +105,4 @@ tax_input1 = Sales_Tax('salesTaxInput3.txt')
 # tax_input1.get_sales_tax()
 # tax_input1.is_exempted("1 imported box of chocolates at 10.00")
 tax_input1.get_total_amount()
+tax_input1.get_array_lines()
