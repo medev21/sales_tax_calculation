@@ -17,8 +17,6 @@ class Sales_Tax(object):
             with open(self.file) as f:
                 file_lines = f.readlines() #read each line
 
-            import pdb; pdb.set_trace()
-
             return file_lines
 
         except:
@@ -43,8 +41,12 @@ class Sales_Tax(object):
         return total_amount #return tax arrays
 
     def calculate_amount(self, line):
-        split_line = line.split() #split the line into an array
-        product_price = float(split_line[len(split_line) - 1]) #get last item in the array
+        # split_line = line.split() #split the line into an array
+        # product_price = float(split_line[len(split_line) - 1]) #get last item in the array
+
+        product_price = self.get_contents_from_line(line)
+
+        import pdb; pdb.set_trace()
         return product_price
 
     def calculate_tax(self, line):
@@ -86,6 +88,27 @@ class Sales_Tax(object):
 
         return lines #return each line in an array
 
+    def get_contents_from_line(self, line):
+        # lines = self.get_content()
+
+        # for line in lines:
+        #     split_line = line.split()
+        #     quantity = int(split_line[0]) #first item is qty
+        #     description = ' '.join(split_line[1:-1]) #decription, remove first and last item
+        #     price = float(split_line[len(split_line) - 1])  #last item is the price
+
+        split_line = line.split()
+        quantity = int(split_line[0]) #first item is qty
+        description = ' '.join(split_line[1:-1]) #decription, remove first and last item
+        price = float(split_line[len(split_line) - 1])  #last item is the price
+
+        import pdb; pdb.set_trace()
+
+        return quantity, description, price
+
+    
+
+
     # def check_line(self):
     #
     #     for line in self.get_array_lines():
@@ -104,5 +127,6 @@ tax_input1 = Sales_Tax('salesTaxInput3.txt')
 # tax_input1.calculate_tax("1 imported box of chocolates at 10.00")
 # tax_input1.get_sales_tax()
 # tax_input1.is_exempted("1 imported box of chocolates at 10.00")
-tax_input1.get_total_amount()
-tax_input1.get_array_lines()
+# tax_input1.get_total_amount()
+
+tax_input1.calculate_amount("1 box of imported chocolates at 11.25")
