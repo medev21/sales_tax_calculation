@@ -102,21 +102,25 @@ class Sales_Tax(object):
         description = ' '.join(split_line[1:-1]) #decription, remove first and last item
         price = float(split_line[len(split_line) - 1])  #last item is the price
 
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
 
         return quantity, description, price
 
-    
+    def get_quantity(self, line):
+
+        return self.get_contents_from_line(line)[0]
+
+    def get_description(self, line):
+
+        return self.get_contents_from_line(line)[1]
 
 
-    # def check_line(self):
-    #
-    #     for line in self.get_array_lines():
-    #         if self.is_imported(line):
-    #             return calculate_tax(line)
-    #             # pass
-    #     pass
+    def get_price(self, line):
+        import pdb; pdb.set_trace()
 
+        return self.get_contents_from_line(line)[2]
+
+##############################################################################
 
 
 tax_input1 = Sales_Tax('salesTaxInput3.txt')
@@ -129,4 +133,6 @@ tax_input1 = Sales_Tax('salesTaxInput3.txt')
 # tax_input1.is_exempted("1 imported box of chocolates at 10.00")
 # tax_input1.get_total_amount()
 
-tax_input1.calculate_amount("1 box of imported chocolates at 11.25")
+# tax_input1.get_quantity()
+tax_input1.get_description()
+tax_input1.get_price()
