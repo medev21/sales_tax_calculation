@@ -2,7 +2,7 @@
 # imported items are taxed 5%
 
 # import pdb; pdb.set_trace()
-
+import sys
 
 class Sales_Tax(object):
 
@@ -22,6 +22,20 @@ class Sales_Tax(object):
         except:
             print('something went wrong')   #print error message
 
+    def write_results(self):
+        name = "salesTaxOutput3.txt"
+        try:
+            file = open(name, 'w')
+
+            for line in self.get_output():
+                file.write(line +  "\n")
+
+            file.close()
+
+        except:
+            print('Something went wrong! Can\'t tell what?')
+            sys.exit(0) # quit Python
+
     def get_sales_tax(self):
         tax_arr = [] #empty tax array
         for line in self.get_array_lines():
@@ -35,9 +49,17 @@ class Sales_Tax(object):
             amount_arr.append(self.get_price(line)) #added calulated taxes in array
 
         total_amount = map(sum, zip(amount_arr, self.get_sales_tax()))
-        import pdb; pdb.set_trace()
 
         return total_amount #return tax arrays
+
+    def get_output(self):
+        output = [] #empty output array
+        i = 0 #start a zero for loop
+        for line in self.get_array_lines():
+            output.append(str(self.get_quantity(line)) + " "+ self.get_description(line) + ": " + str(self.get_total_amount()[i]))
+            i += 1
+
+        return output
 
     def calculate_tax(self, line):
         description = self.get_description(line)
@@ -82,23 +104,28 @@ class Sales_Tax(object):
 
         split_line = line.split() #splint string into an array
         quantity = int(split_line[0]) #first item is qty
-        description = ' '.join(split_line[1:-1]) #decription, remove first and last item
+        description = ' '.join(split_line[1:-2]) #decription, remove first and last item
         price = float(split_line[len(split_line) - 1])  #last item is the price
 
         return quantity, description, price
 
     def get_quantity(self, line):
 
-        return self.get_contents_from_line(line)[0]
+        return self.get_contents_from_line(line)[0] #returns an int
 
     def get_description(self, line):
 
-        return self.get_contents_from_line(line)[1]
+        return self.get_contents_from_line(line)[1] #returns a string
 
 
     def get_price(self, line):
 
-        return self.get_contents_from_line(line)[2]
+        return self.get_contents_from_line(line)[2] #returns a float
+
+    # def get_output(self, line):
+    #     output = str(self.get_quantity(line)) + " "+ self.get_description(line) + ": "
+    #     import pdb; pdb.set_trace()
+    #     return output
 
 ##############################################################################
 
@@ -111,4 +138,7 @@ tax_input1 = Sales_Tax('salesTaxInput3.txt')
 # tax_input1.calculate_tax("1 imported box of chocolates at 10.00")
 # tax_input1.get_sales_tax()
 # tax_input1.is_exempted("1 imported box of chocolates at 10.00")
-tax_input1.get_total_amount()
+# tax_input1.get_total_amount()
+# tax_input1.get_output("1 imported box of chocolates at 10.00")
+# tax_input1.get_output()
+tax_input1.write_results()
