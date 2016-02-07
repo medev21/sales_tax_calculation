@@ -39,7 +39,7 @@ class Sales_Tax(object):
     def get_sales_tax(self):
         tax_arr = [] #empty tax array
         for line in self.get_array_lines():
-            tax_arr.append(self.calculate_tax(line)) #added calulated taxes in array
+            tax_arr.append(round(self.calculate_tax(line), 2)) #added calulated taxes in array
 
         return tax_arr #return tax arrays
 
