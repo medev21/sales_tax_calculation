@@ -41,7 +41,18 @@ class Sales_Tax(object):
         for line in self.get_array_lines():
             tax_arr.append(round(self.calculate_tax(line), 2)) #added calulated taxes in array
 
+        # import pdb; pdb.set_trace()
+
         return tax_arr #return tax arrays
+
+    def get_sum_of_taxes(self):
+        tax_sum = 0
+        for tax in self.get_sales_tax():
+            tax_sum += tax
+
+        import pdb; pdb.set_trace()
+
+        return tax_sum
 
     def get_total_amount(self):
         amount_arr = []
@@ -50,7 +61,7 @@ class Sales_Tax(object):
 
         total_amount = map(sum, zip(amount_arr, self.get_sales_tax()))
 
-        return total_amount #return tax arrays
+        return total_amount #return each product price w/ tax - array
 
     def get_output(self):
         output = [] #empty output array
@@ -122,10 +133,7 @@ class Sales_Tax(object):
 
         return self.get_contents_from_line(line)[2] #returns a float
 
-    # def get_output(self, line):
-    #     output = str(self.get_quantity(line)) + " "+ self.get_description(line) + ": "
-    #     import pdb; pdb.set_trace()
-    #     return output
+
 
 ##############################################################################
 
@@ -141,4 +149,5 @@ tax_input1 = Sales_Tax('salesTaxInput3.txt')
 # tax_input1.get_total_amount()
 # tax_input1.get_output("1 imported box of chocolates at 10.00")
 # tax_input1.get_output()
-tax_input1.write_results()
+# tax_input1.write_results()
+tax_input1.get_sum_of_taxes()
