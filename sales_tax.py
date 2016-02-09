@@ -1,7 +1,6 @@
 # books, food, medical products are exempt, other products are taxed 10%
 # imported items are taxed 5%
 
-# import pdb; pdb.set_trace()
 import sys
 
 class Sales_Tax(object):
@@ -39,7 +38,9 @@ class Sales_Tax(object):
     def get_sales_tax(self):
         tax_arr = [] #empty tax array
         for line in self.get_array_lines():
-            tax_arr.append(round(self.calculate_tax(line), 2)) #added calulated taxes in array
+            rounded = round(self.calculate_tax(line)/ 0.05) * 0.05
+            tax_arr.append(round(rounded, 2)) #added calulated taxes in array
+            # tax_arr.append(round(self.calculate_tax(line), 1)) #added calulated taxes in array
 
         return tax_arr #return tax arrays
 
@@ -146,7 +147,7 @@ class Sales_Tax(object):
 ##############################################################################
 
 
-tax_input1 = Sales_Tax('salesTaxInput3.txt')
+tax_input1 = Sales_Tax('salesTaxInput2.txt')
 
 # tax_input1.get_single_lines()
 # tax_input1.get_content()
