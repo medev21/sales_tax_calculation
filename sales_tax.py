@@ -149,15 +149,13 @@ class Sales_Tax(object):
 
 tax_input1 = Sales_Tax('salesTaxInput2.txt')
 
-# tax_input1.get_single_lines()
-# tax_input1.get_content()
+
 # tax_input1.is_imported("1 imported box of chocolates at 10.00")
 # tax_input1.calculate_tax("1 imported box of chocolates at 10.00")
 # tax_input1.get_sales_tax()
 # tax_input1.is_exempted("1 imported box of chocolates at 10.00")
 # tax_input1.get_total_amount()
-# tax_input1.get_output("1 imported box of chocolates at 10.00")
 # tax_input1.get_output()
-tax_input1.write_results()
 # tax_input1.get_sum_of_taxes()
 # tax_input1.get_sum_of_total_amount()
+tax_input1.write_results()
